@@ -1,48 +1,57 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strconv"
-	"strings"
 )
 
+const filename = "input.txt"
+
 func main() {
-	content, err := ioutil.ReadFile("input.txt")
-	if err != nil {
-		fmt.Print(err)
-		os.Exit(1)
-	}
+	inputs := extractInputs()
+	firstResult := 0
+	secondResult := 0
 
-	lines := strings.Split(string(content), "\n")
-	var inputs = []int{}
-	for _, value := range lines {
-		if value != "" {
-			input, err := strconv.Atoi(value)
-			if err != nil {
-				panic(err)
-			}
-			inputs = append(inputs, input)
-		}
-	}
-
-	for i, value := range inputs {
-		for j, value2 := range inputs {
+	for i, v := range inputs {
+		for j, vv := range inputs {
 			// Part 1
 			if i != j {
-				if value+value2 == 2020 {
-					fmt.Printf("Answer for part 1 is: %d, ", value*value2)
+				if v+vv == 2020 {
+					firstResult = v * vv
 				}
 			}
 			// Part 2
-			for k, value3 := range inputs {
+			for k, vvv := range inputs {
 				if i != j && i != k && j != k {
-					if value+value2+value3 == 2020 {
-						fmt.Printf("Answer for part 2 is: %d, ", value*value2*value3)
+					if v+vv+vvv == 2020 {
+						secondResult = v * vv * vvv
 					}
 				}
 			}
 		}
 	}
+	fmt.Printf("Answer for part 1 is: %d\n", firstResult)
+	fmt.Printf("Answer for part 2 is: %d\n", secondResult)
+}
+
+func extractInputs() []int {
+	var inputs = []int{}
+
+	file, err := os.Open(filename)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		input, err := strconv.Atoi(scanner.Text())
+		if err != nil {
+			panic(err)
+		}
+		inputs = append(inputs, input)
+	}
+	return inputs
 }
