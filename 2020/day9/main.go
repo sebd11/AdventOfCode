@@ -69,7 +69,7 @@ func extractInputs() []int {
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		num, _ := strconv.Atoi((scanner.Text()))
+		num, _ := strconv.Atoi(scanner.Text())
 		inputs = append(inputs, num)
 	}
 

@@ -15,7 +15,7 @@ type Input struct {
 }
 
 func main() {
-	fileContent, _ := ioutil.ReadFile("input.txt")
+	fileContent, _ := ioutil.ReadFile(filename)
 	inputs := strings.Split(strings.TrimSpace(string(fileContent)), "\n")
 	acc, _ := firstPart(inputs)
 	fmt.Printf("Part 1 - The value in the accumulator is: %d\n", acc)

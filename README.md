@@ -1,2 +1,2 @@
 # Advent of Code
-Written in Golang uwu
+Learning Golang :pleading_face: :point_right: :point_left:
